@@ -15,7 +15,7 @@
     # for the full list
     "category": "Localization",
     "version": "14.0.0.1.0",
-    'images': ['static/description/currency_rates_banner.jpg'],
+    'images': ['static/description/currency_rates_banner.jpeg'],
     # any module necessary for this one to work correctly
     "depends": ["base", "iap"],
 
