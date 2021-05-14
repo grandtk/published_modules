@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 import logging
-from odoo import models, api, fields
-# from odoo.addons.iap import jsonrpc
-from odoo.addons.iap.tools import iap_tools
+from odoo import models, api, fields, exceptions
+from odoo.addons.iap import jsonrpc
+from odoo.addons.iap.models import iap
 
 
 DEFAULT_ENDPOINT = 'https://cbe-currency-update-service-tmz24rud7q-lz.a.run.app/api/v2/jsonrpc'
@@ -28,7 +28,10 @@ class CBECurrencyUpdate(models.Model):
         }
         endpoint = self.env['ir.config_parameter'].sudo().get_param(
             'currency.endpoint', DEFAULT_ENDPOINT)
-        result = iap_tools.iap_jsonrpc(endpoint + '/call', params=params)
+        try:
+            result = jsonrpc(endpoint + '/call', params=params)
+        except iap.InsufficientCreditError:
+            raise exceptions.ValidationError("Insufficient Credit. Please buy credits from General Settings menu!")
         for index in range(len(supported_currencies)):
             currency = supported_currencies[index]
             currency_obj = self.env['res.currency'].search([

@@ -14,10 +14,10 @@
     # Check https://github.com/odoo/odoo/blob/12.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
     "category": "Localization",
-    "version": "14.0.0.1.0",
+    "version": "12.0.0.1.0",
     'images': ['static/description/currency_rates_banner.jpeg'],
     # any module necessary for this one to work correctly
-    "depends": ["base", "iap"],
+    "depends": ["base", "base_setup", "iap"],
 
     # always loaded
     "data": [

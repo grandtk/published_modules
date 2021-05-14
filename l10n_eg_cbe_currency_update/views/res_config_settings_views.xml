@@ -5,25 +5,40 @@
     <field name="model">res.config.settings</field>
     <field name="inherit_id" ref="base_setup.res_config_settings_view_form"/>
     <field name="arch" type="xml">
-      <div id="contacts_settings" position="before">
-        <div id="cbe_currency_updater">
-          <h2>CBE Currency Updater</h2>
-          <div class="row mt16 o_settings_container" name="cbe_currency_updater_setting_container">
-            <div class="col-xs-12 col-md-6 o_setting_box" id="cbe">
-              <div class="o_setting_right_pane" id="cbe_settings">
-                <widget name="iap_buy_more_credits" service_name="cbe_currency_updates"/>
-                <div class="o_form_label">
-                  CBE Currency Updater
-                </div>
-                <div class="text-muted">
-                  Update Currencies based on CBE rates
-                </div>
+
+      <xpath expr="//div[hasclass('app_settings_block')][@data-key='general_settings']/div[1]" position="before">
+        <div class="alert alert-info alert-dismissible fade show pt-2 pb-2" role="alert"
+             attrs="{'invisible': [('cbe_insufficient_credit', '=', False)]}"
+             data-showfor="general_settings">
+          <field name="cbe_insufficient_credit" invisible="1"/>
+          <i class="fa fa-exclamation-triangle text-warning"></i> &amp;nbsp; You don't have credits to CBE Update
+          anymore.
+          <button name="redirect_to_buy_cbe_credit" type="object" class="btn-link">
+            <i class="fa fa-arrow-right"/>
+            Buy more credits
+          </button>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span>&amp;times;</span>
+          </button>
+        </div>
+      </xpath>
+
+
+      <xpath expr="//div[hasclass('app_settings_block')][@data-key='general_settings']/div[1]" position="after">
+        <h2>CBE Currency Update</h2>
+        <div class="row mt16 o_settings_container" name="cbe_currency_update">
+          <div class="col-xs-12 col-md-6 o_setting_box" title="CBE Currency Updater">
+            <div class="o_setting_left_pane">
+            </div>
+            <div class="o_setting_right_pane" id="cbe_currency_updater">
+              <widget name="iap_credit_checker" service_name="cbe_currency_updates"/>
+              <div class="text-muted">
+                Update currency rates based on CBE (Egypt) rates.
               </div>
             </div>
           </div>
         </div>
-
-      </div>
+      </xpath>
     </field>
   </record>
 </odoo>
