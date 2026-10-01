@@ -1,27 +1,17 @@
-# -*- coding: utf-8 -*-
 {
     "name": "Central Bank Of Egypt (CBE) Currency Updater",
-    "summary": """
-        Update Currency based on CBE (Central Bank Of Egypt) Official Exchange rates and prices
-        """,
-    "description": """
-         Using Odoo IAP to update currencies.
-         """,
+    "summary": "Update currency rates from the official CBE exchange rates",
+    "description": "Uses Odoo IAP to fetch the official CBE exchange rates and create daily currency rates.",
     "author": "GRANDTK",
     "website": "http://www.grandtk.com",
-
-    # Categories can be used to filter modules in modules listing
-    # Check https://github.com/odoo/odoo/blob/12.0/odoo/addons/base/data/ir_module_category_data.xml
-    # for the full list
-    "category": "Localization",
-    "version": "0.1",
-
-    # any module necessary for this one to work correctly
-    "depends": ["base", "iap"],
-
-    # always loaded
+    "category": "Accounting/Localizations",
+    "version": "18.0.1.0.0",
+    "license": "LGPL-3",
+    "depends": ["base", "base_setup", "iap"],
     "data": [
-        'views/res_config_settings_views.xml',
+        "views/res_config_settings_views.xml",
         "data/cron.xml",
     ],
+    "installable": True,
+    "application": False,
 }
