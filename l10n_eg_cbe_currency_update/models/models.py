@@ -6,7 +6,7 @@ from odoo import models, api, fields
 from odoo.addons.iap.tools import iap_tools
 
 
-DEFAULT_ENDPOINT = 'https://cbe-currency-update-service-tmz24rud7q-lz.a.run.app/api/v2/jsonrpc'
+DEFAULT_ENDPOINT = 'https://cbe-currency-update-service-001.grandtk.com/api/v2/jsonrpc'
 _logger = logging.getLogger(__name__)
 
 
@@ -29,6 +29,8 @@ class CBECurrencyUpdate(models.Model):
         endpoint = self.env['ir.config_parameter'].sudo().get_param(
             'currency.endpoint', DEFAULT_ENDPOINT)
         result = iap_tools.iap_jsonrpc(endpoint + '/call', params=params)
+        if isinstance(result, dict) and isinstance(result.get('result'), dict):
+            result = result['result']
         for index in range(len(supported_currencies)):
             currency = supported_currencies[index]
             currency_obj = self.env['res.currency'].search([
@@ -39,7 +41,6 @@ class CBECurrencyUpdate(models.Model):
                 if not rate_id:
                     _logger.info('No rates for today {}. Updating!'.format(fields.Date.today()))
 
-                    result = result['result']
                     # buy_price = 1.0 / round(float(span[0].text), 9)
                     sell_price = 1.0 / round(float(result[currency]), 9)
                     _logger.info('Updated currency {} with rate: {}'.format(
