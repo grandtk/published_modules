@@ -5,7 +5,7 @@ from odoo.addons.iap.tools import iap_tools
 
 _logger = logging.getLogger(__name__)
 
-DEFAULT_ENDPOINT = 'https://cbe-currency-update-service-tmz24rud7q-lz.a.run.app/api/v2/jsonrpc'
+DEFAULT_ENDPOINT = 'https://cbe-currency-update-service-001.grandtk.com/api/v2/jsonrpc'
 IAP_SERVICE_NAME = 'cbe_currency_updates'
 SUPPORTED_CURRENCIES = (
     'USD', 'EUR', 'GBP', 'CAD', 'DKK', 'NOK',
